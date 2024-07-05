@@ -1,159 +1,107 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 264,
-   "id": "58f80ff4-5c10-4cef-89cf-53ed3ef3fb19",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Financial Analysis\n",
-      "----------------------------\n",
-      "Total months: 86\n",
-      "Total: $22564198\n",
-      "Average Change:-8311.11\n",
-      "Greatest Increase in Profits: Aug-16 ($1862002) \n",
-      "Greatest Decrease in Profits: Feb-14 ($-1825558) \n",
-      "------------------------------------------------------\n",
-      "\n"
-     ]
-    }
-   ],
-   "source": [
-    "# final Result should be: as below\n",
-    "\n",
-    "# Financial Analysis\n",
-    "# ----------------------------\n",
-    "# Total Months: 86\n",
-    "# Total: $22564198\n",
-    "# Average Change: $-8311.11\n",
-    "# Greatest Increase in Profits: Aug-16 ($1862002)\n",
-    "# Greatest Decrease in Profits: Feb-14 ($-1825558)\n",
-    "# ------------------------------------------------------\n",
-    "\n",
-    "\n",
-    "# define dependency\n",
-    "\n",
-    "import os\n",
-    "import csv\n",
-    "\n",
-    "# file to load and output\n",
-    "\n",
-    "file_to_load = os.path.join(\".\", \"Resources\", \"budget_data.csv\")\n",
-    "# print(file_to_load)\n",
-    "\n",
-    "file_to_output = os.path.join(\".\", \"financial_analysis.txt\")\n",
-    "# print(file_to_output)\n",
-    "\n",
-    "total_months = 1\n",
-    "total = 0\n",
-    "\n",
-    "# average_change = 0\n",
-    "increase_profit = 0\n",
-    "decrease_profit = 0\n",
-    "\n",
-    "net_change_list =[]\n",
-    "month =[]\n",
-    "\n",
-    "with open(file_to_load) as financial_data:\n",
-    "    reader = csv.reader(financial_data)\n",
-    "    # print(reader)\n",
-    "\n",
-    "  \n",
-    "    header = next(reader)\n",
-    "    # print(f\"Header:{header}\")\n",
-    "\n",
-    "    first_row = next(reader)\n",
-    "    # print(first_row)\n",
-    "    total = total + int(first_row[1]) #1088983\n",
-    "    prv_total = int(first_row[1]) #1088983\n",
-    "    \n",
-    "    for row in reader:\n",
-    "        \n",
-    "        # to get the total\n",
-    "        total_months = total_months + 1\n",
-    "        # print(total_months)\n",
-    "        total = total + int(row[1])\n",
-    "\n",
-    "        month.append(row[0])\n",
-    "        # print(month)\n",
-    "        \n",
-    "        # to get average change\n",
-    "        net_change = int(row[1]) - prv_total\n",
-    "        prv_total = int(row[1])\n",
-    "        net_change_list.append(net_change)\n",
-    "        # print(net_change_list)\n",
-    "        \n",
-    "        # to get greatest increase & greatest decrease\n",
-    "        increase_profit = max(net_change_list)\n",
-    "        decrease_profit = min(net_change_list)\n",
-    "\n",
-    "        # to get highest increse profit month & lowest decrease profit month\n",
-    "        increse_profit_month = net_change_list.index(increase_profit)\n",
-    "        decrease_profit_month = net_change_list.index(decrease_profit)\n",
-    "\n",
-    "        highest_profit_month = month[increse_profit_month]\n",
-    "        lowest_profit_month = month[decrease_profit_month]\n",
-    "\n",
-    "\n",
-    "average_change = sum(net_change_list)/ len(net_change_list)\n",
-    "\n",
-    "# final result\n",
-    "output = (\n",
-    "    f\"Financial Analysis\\n\"\n",
-    "    f\"----------------------------\\n\"\n",
-    "    f\"Total months: {total_months}\\n\"\n",
-    "    f\"Total: ${total}\\n\"\n",
-    "    f\"Average Change:{average_change:.2f}\\n\"\n",
-    "    f\"Greatest Increase in Profits: {highest_profit_month} (${increase_profit}) \\n\"\n",
-    "    f\"Greatest Decrease in Profits: {lowest_profit_month} (${decrease_profit}) \\n\"\n",
-    "    f\"------------------------------------------------------\\n\"\n",
-    ")\n",
-    "print(output)\n",
-    "\n",
-    "#to write final result in text file\n",
-    "with open(file_to_output, \"w\") as text_file:\n",
-    "    text_file.write(output)\n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "5486b15f-16c5-4f8f-ba4c-fe7e68aad190",
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3 (ipykernel)",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.11.7"
-  },
-  "widgets": {
-   "application/vnd.jupyter.widget-state+json": {
-    "state": {},
-    "version_major": 2,
-    "version_minor": 0
-   }
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
-}
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[264]:
+
+
+# final Result should be: as below
+
+# Financial Analysis
+# ----------------------------
+# Total Months: 86
+# Total: $22564198
+# Average Change: $-8311.11
+# Greatest Increase in Profits: Aug-16 ($1862002)
+# Greatest Decrease in Profits: Feb-14 ($-1825558)
+# ------------------------------------------------------
+
+
+# define dependency
+
+import os
+import csv
+
+# file to load and output
+
+file_to_load = os.path.join(".", "Resources", "budget_data.csv")
+# print(file_to_load)
+
+file_to_output = os.path.join(".", "financial_analysis.txt")
+# print(file_to_output)
+
+total_months = 1
+total = 0
+
+# average_change = 0
+increase_profit = 0
+decrease_profit = 0
+
+net_change_list =[]
+month =[]
+
+with open(file_to_load) as financial_data:
+    reader = csv.reader(financial_data)
+    # print(reader)
+
+  
+    header = next(reader)
+    # print(f"Header:{header}")
+
+    first_row = next(reader)
+    # print(first_row)
+    total = total + int(first_row[1]) #1088983
+    prv_total = int(first_row[1]) #1088983
+    
+    for row in reader:
+        
+        # to get the total
+        total_months = total_months + 1
+        # print(total_months)
+        total = total + int(row[1])
+
+        month.append(row[0])
+        # print(month)
+        
+        # to get average change
+        net_change = int(row[1]) - prv_total
+        prv_total = int(row[1])
+        net_change_list.append(net_change)
+        # print(net_change_list)
+        
+        # to get greatest increase & greatest decrease
+        increase_profit = max(net_change_list)
+        decrease_profit = min(net_change_list)
+
+        # to get highest increse profit month & lowest decrease profit month
+        increse_profit_month = net_change_list.index(increase_profit)
+        decrease_profit_month = net_change_list.index(decrease_profit)
+
+        highest_profit_month = month[increse_profit_month]
+        lowest_profit_month = month[decrease_profit_month]
+
+
+average_change = sum(net_change_list)/ len(net_change_list)
+
+# final result
+output = (
+    f"Financial Analysis\n"
+    f"----------------------------\n"
+    f"Total months: {total_months}\n"
+    f"Total: ${total}\n"
+    f"Average Change:{average_change:.2f}\n"
+    f"Greatest Increase in Profits: {highest_profit_month} (${increase_profit}) \n"
+    f"Greatest Decrease in Profits: {lowest_profit_month} (${decrease_profit}) \n"
+    f"------------------------------------------------------\n"
+)
+print(output)
+
+#to write final result in text file
+with open(file_to_output, "w") as text_file:
+    text_file.write(output)
+
+
+# In[ ]:
+
+
+
+
